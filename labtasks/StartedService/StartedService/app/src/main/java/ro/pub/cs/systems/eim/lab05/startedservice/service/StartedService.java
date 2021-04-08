@@ -41,8 +41,14 @@ public class StartedService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(Constants.TAG, "onStartCommand() method was invoked");
-        // TODO: exercise 5 - implement and start the ProcessingThread
+        // a) De ce este necesar ca serviciul să realizeze operațiile pe un fir de execuție dedicat?
+        // In thread-ul principal au loc operatiile cu interfata cu utilizatorul si nu  e indicat sa
+        // il tinem ocupat cu alte operatii care dureaza mult timp.
+        // b) Ce alternativă s-ar fi putut folosi pentru a se evita o astfel de abordare?
+        // Ce avantaj și ce dezavantaj prezintă această alternativă?
+        // AsyncTask
+        ProcessingThread processingThread = new ProcessingThread(this);
+        processingThread.start();
         return START_REDELIVER_INTENT;
     }
-
 }
